@@ -1,23 +1,23 @@
 package com.bot.core;
 
-import java.beans.IntrospectionException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.bot.entity.ResponseMessage;
+import com.bot.scenario.handler.Scenario1;
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.model.request.Keyboard;
-import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
-import com.pengrad.telegrambot.request.*;
-import com.pengrad.telegrambot.response.GetUpdatesResponse;
-import com.pengrad.telegrambot.response.SendResponse;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 
 public class Source {
 
     public static void main(String[] args) throws InterruptedException {
+
+        BotCommandExecutor botexec= new BotCommandExecutor();
+        ApplicationContext context= new ClassPathXmlApplicationContext("beans.xml");
+        Scenario1 scenario= (Scenario1) context.getBean("scenario1");
 
         final String botToken = "934437958:AAGaIZjKSzdSnMHDabQsw10wG5RI1CvmLPY";
         List<ResponseMessage> getAllUpdates = null;
@@ -33,19 +33,12 @@ public class Source {
 
             try {
                 //get all updates
-                getAllUpdates = executeUpdate(bot);
+                getAllUpdates = botexec.executeUpdate(bot);
                 System.out.println();
 
                 for (ResponseMessage resp : getAllUpdates) {
 
-                    if (resp.getMessageText().toString().equals("/start")) {
-
-                        displayKeyborad(bot, resp.getChatId(), "Hello welcome in test chat!!!!");
-                        forceUpdate(bot, resp.getUpdateID());
-
-                    } else if (resp.getMessageText().toString().equals("button1")) {
-
-                    }
+                        scenario.process("",bot,resp);
 
                 }
 
@@ -63,7 +56,7 @@ public class Source {
     }
 
 
-        public static List<ResponseMessage> executeUpdate (TelegramBot bot) throws Exception {
+     /*   public static List<ResponseMessage> executeUpdate (TelegramBot bot) throws Exception {
 
             List<ResponseMessage> allmessages = new ArrayList<ResponseMessage>();
             GetUpdates getUpdates = new GetUpdates().limit(100).offset(0).timeout(0);
@@ -116,6 +109,6 @@ public class Source {
             return updatesResponse.isOk();
         }
 
-
+*/
 }
 

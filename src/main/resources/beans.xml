@@ -9,4 +9,64 @@
 
 
 
+      <bean id="scenario1" class="com.bot.scenario.handler.Scenario1">
+         <property name="nextStep" >
+            <ref bean="scenario2" />
+         </property>
+
+          <property name="messageAction" value="/start" />
+
+         <property name="allComand">
+              <list>
+                  <value>Hack Android</value>
+                  <value>Hack IOS</value>
+              </list>
+          </property>
+      </bean>
+
+
+      <bean id="scenario2" class="com.bot.scenario.handler.Scenario2">
+          <property name="nextStep" >
+              <ref bean="scenario3" />
+          </property>
+
+          <property name="messageAction" value="Hack Android" />
+
+          <property name="allComand">
+              <list>
+                  <value>Samsung</value>
+                  <value>Huawei</value>
+                  <value>OnePlus</value>
+                  <value>Google Pixel</value>
+                  <value>HTC</value>
+                  <value>Loher</value>
+              </list>
+          </property>
+      </bean>
+
+
+      <bean id="scenario3" class="com.bot.scenario.handler.Scenario3">
+
+          <property name="messageAction" value="Hack IOS" />
+
+          <property name="allComand">
+              <list>
+                  <value>iPhone 11</value>
+                  <value>iPhone 11 Pro</value>
+                  <value>iPhone 11 Pro Max</value>
+                  <value>iPhone 8</value>
+                  <value>iPhone 8 Plus</value>
+                  <value>iPhone XR</value>
+                  <value>iPhone SE</value>
+                  <value>iPhone XS Max</value>
+                  <value>iPhone XS</value>
+                  <value>iPhone X</value>
+                  <value>iPhone 7</value>
+              </list>
+          </property>
+      </bean>
+
+
+
+
 </beans>

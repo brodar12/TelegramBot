@@ -7,7 +7,7 @@ import com.pengrad.telegrambot.TelegramBot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Scenario2 extends BotCommandExecutor implements Step {
+public class Scenario3 extends BotCommandExecutor implements Step {
 
     private Step nextStep;
     private List<String> allComand= new ArrayList<>();
@@ -18,15 +18,18 @@ public class Scenario2 extends BotCommandExecutor implements Step {
     @Override
     public void process(String message, TelegramBot bot, ResponseMessage resp) {
 
-        System.out.println("S2");
+        System.out.println("S3");
 
         if(messageAction.equals(resp.getMessageText())){
 
-            System.out.println("S2 Execute command:"+resp.getMessageText());
-            super.displayKeyborad(bot,resp.getChatId(),"Step2",allComand);
+            System.out.println("S3 Execute command:"+resp.getMessageText());
+            super.displayKeyborad(bot,resp.getChatId(),"Step3",allComand);
             super.forceUpdate(bot,resp.getUpdateID());
         }
-        else{ nextStep.process(message,bot,resp); }
+        else{
+            if(nextStep!=null)nextStep.process(message,bot,resp);
+        }
+
     }
 
     public List<String> getAllComand() {

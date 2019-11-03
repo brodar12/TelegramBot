@@ -1,8 +1,8 @@
 package com.bot.scenario.handler;
 
-public interface Step {
-     void setNextScenario(Step step);
-     void process(String message);
-     void setAllCommand(String message);
+import com.bot.entity.ResponseMessage;
+import com.pengrad.telegrambot.TelegramBot;
 
+public interface Step {
+     void process(String message, TelegramBot bot, ResponseMessage resp);
 }
