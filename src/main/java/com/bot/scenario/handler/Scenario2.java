@@ -1,39 +1,47 @@
 package com.bot.scenario.handler;
 
 import com.bot.core.BotCommandExecutor;
+import com.bot.entity.GlobalResponse;
 import com.bot.entity.ResponseMessage;
 import com.pengrad.telegrambot.TelegramBot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Scenario2 extends BotCommandExecutor implements Step {
 
     private Step nextStep;
-    private List<String> allComand= new ArrayList<>();
+    private Map<String,String> allComand= new HashMap<>();
     private String messageAction;
 
 
 
     @Override
-    public void process(String message, TelegramBot bot, ResponseMessage resp) {
+    public void process(String message, TelegramBot bot, GlobalResponse resp) {
 
         System.out.println("S2");
 
-        if(messageAction.equals(resp.getMessageText())){
+        if(resp.getResponseCallbackQuery()!=null) {
 
-            System.out.println("S2 Execute command:"+resp.getMessageText());
-            super.displayKeyborad(bot,resp.getChatId(),"Step2",allComand);
-            super.forceUpdate(bot,resp.getUpdateID());
+             if (messageAction.equals(resp.getResponseCallbackQuery().getData())) {
+
+                        System.out.println("S2 Execute command:" + resp.getResponseCallbackQuery().getData());
+                        super.displayKeyborad(bot, resp.getResponseCallbackQuery().getChatID(), "Selectati tipul de telefon pentru android!!!", allComand);
+                        super.forceUpdate(bot, resp.getResponseCallbackQuery().getUpdateID());
+
+             }
+             else { nextStep.process(message, bot, resp); }
         }
         else{ nextStep.process(message,bot,resp); }
     }
 
-    public List<String> getAllComand() {
+    public Map<String, String> getAllComand() {
         return allComand;
     }
 
-    public void setAllComand(List<String> allComand) {
+    public void setAllComand(Map<String, String> allComand) {
         this.allComand = allComand;
     }
 

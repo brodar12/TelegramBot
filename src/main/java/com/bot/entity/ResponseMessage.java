@@ -3,7 +3,7 @@ package com.bot.entity;
 public class ResponseMessage {
     private long chatId;
     private int messageId;
-    private int updateID;;
+    private int updateID;
     private String messageText;
 
 

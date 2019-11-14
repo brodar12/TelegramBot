@@ -1,40 +1,38 @@
 package com.bot.scenario.handler;
 
 import com.bot.core.BotCommandExecutor;
-import com.bot.entity.ResponseMessage;
+import com.bot.entity.GlobalResponse;
 import com.pengrad.telegrambot.TelegramBot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Scenario1 extends BotCommandExecutor implements Step {
 
     private Step nextStep;
-    private List<String> allComand= new ArrayList<>();
+    private Map<String,String> allComand= new HashMap<>();
     private String messageAction;
 
 
     @Override
-    public void process(String message, TelegramBot bot, ResponseMessage resp) {
+    public void process(String message, TelegramBot bot, GlobalResponse resp) {
 
         System.out.println("S1");
 
-            if(messageAction.equals(resp.getMessageText())){
+          if(resp.getResponseMessage()!=null){
 
-                System.out.println("S1 Execute command:"+resp.getMessageText());
-                super.displayKeyborad(bot,resp.getChatId(),"Step1",allComand);
-                super.forceUpdate(bot,resp.getUpdateID());
-             }
-             else{ nextStep.process(message,bot,resp); }
+                  if(messageAction.equals(resp.getResponseMessage().getMessageText())){
 
-    }
+                      System.out.println("S1 Execute command:"+resp.getResponseMessage().getMessageText());
+                      super.displayKeyborad(bot,resp.getResponseMessage().getChatId(),"Selectati sistemul de operare!!!",allComand);
+                      super.forceUpdate(bot,resp.getResponseMessage().getUpdateID());
+                  }
+                  else{ nextStep.process(message,bot,resp); }
+          }
+          else{ nextStep.process(message,bot,resp); }
 
-    public List<String> getAllComand() {
-        return allComand;
-    }
-
-    public void setAllComand(List<String> allComand) {
-        this.allComand = allComand;
     }
 
     public Step getNextStep() {
@@ -45,7 +43,19 @@ public class Scenario1 extends BotCommandExecutor implements Step {
         this.nextStep = nextStep;
     }
 
-    public String getMessageAction() {return messageAction; }
+    public Map<String, String> getAllComand() {
+        return allComand;
+    }
 
-    public void setMessageAction(String messageAction) { this.messageAction = messageAction; }
+    public void setAllComand(Map<String, String> allComand) {
+        this.allComand = allComand;
+    }
+
+    public String getMessageAction() {
+        return messageAction;
+    }
+
+    public void setMessageAction(String messageAction) {
+        this.messageAction = messageAction;
+    }
 }

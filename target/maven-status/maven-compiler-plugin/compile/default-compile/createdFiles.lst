@@ -1,0 +1,7 @@
+com\bot\scenario\handler\Scenario2.class
+com\bot\core\Source.class
+com\bot\scenario\handler\Step.class
+com\bot\scenario\handler\Scenario1.class
+com\bot\scenario\handler\Scenario3.class
+com\bot\core\BotCommandExecutor.class
+com\bot\entity\ResponseMessage.class

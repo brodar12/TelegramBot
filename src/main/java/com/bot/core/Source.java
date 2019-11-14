@@ -1,10 +1,9 @@
 package com.bot.core;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.bot.entity.ResponseMessage;
+import com.bot.entity.GlobalResponse;
 import com.bot.scenario.handler.Scenario1;
 import com.pengrad.telegrambot.TelegramBot;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +19,7 @@ public class Source {
         Scenario1 scenario= (Scenario1) context.getBean("scenario1");
 
         final String botToken = "934437958:AAGaIZjKSzdSnMHDabQsw10wG5RI1CvmLPY";
-        List<ResponseMessage> getAllUpdates = null;
+        List<GlobalResponse> getAllUpdates ;
         boolean access = true;
         int incre = 0;
 
@@ -36,12 +35,9 @@ public class Source {
                 getAllUpdates = botexec.executeUpdate(bot);
                 System.out.println();
 
-                for (ResponseMessage resp : getAllUpdates) {
-
+                for (GlobalResponse resp : getAllUpdates) {
                         scenario.process("",bot,resp);
-
                 }
-
 
             } catch (Exception e) {
                 System.out.println(e);
