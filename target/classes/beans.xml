@@ -47,6 +47,10 @@
 
       <bean id="scenario3" class="com.bot.scenario.handler.Scenario3">
 
+          <property name="nextStep" >
+              <ref bean="scenario4" />
+          </property>
+
           <property name="messageAction" value="ios" />
 
           <property name="allComand">
@@ -66,5 +70,21 @@
           </property>
 
       </bean>
+
+
+    <bean id="scenario4" class="com.bot.scenario.handler.Scenario4">
+
+        <property name="messageAction" value="typePhone" />
+
+        <property name="allComand">
+            <map>
+                <entry key="Facebook" value="socialAcc" />
+                <entry key="Instagram" value="socialAcc" />
+                <entry key="Twiter" value="socialAcc" />
+                <entry key="Don't have social Account" value="socialAcc" />
+            </map>
+        </property>
+
+    </bean>
 
 </beans>
