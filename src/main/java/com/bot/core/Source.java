@@ -6,6 +6,7 @@ import java.util.List;
 import com.bot.entity.GlobalResponse;
 import com.bot.scenario.handler.Scenario1;
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.request.DeleteMessage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

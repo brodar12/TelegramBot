@@ -4,6 +4,7 @@ import com.bot.core.BotCommandExecutor;
 import com.bot.entity.GlobalResponse;
 import com.bot.entity.ResponseMessage;
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.request.DeleteMessage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,9 +28,13 @@ public class Scenario3 extends BotCommandExecutor implements Step {
 
             if (messageAction.equals(resp.getResponseCallbackQuery().getData())) {
 
+                System.out.println("chatId:"+resp.getResponseCallbackQuery().getChatID()+" MessageId:"+resp.getResponseCallbackQuery().getMessageId());
+                super.deleteMessage(bot,resp.getResponseCallbackQuery().getChatID().toString(),resp.getResponseCallbackQuery().getMessageId());
+
                 System.out.println("S2 Execute command:" + resp.getResponseCallbackQuery().getData());
                 super.displayKeyborad(bot, resp.getResponseCallbackQuery().getChatID(), "Selectati tipul de telefon pentru IOS!!!", allComand);
                 super.forceUpdate(bot, resp.getResponseCallbackQuery().getUpdateID());
+
 
             } else {
                  if (nextStep != null) nextStep.process(message, bot, resp);
