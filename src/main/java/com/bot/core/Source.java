@@ -1,26 +1,26 @@
 package com.bot.core;
 
 
-import java.util.List;
-
 import com.bot.entity.GlobalResponse;
 import com.bot.scenario.handler.Scenario1;
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.request.DeleteMessage;
+import com.pengrad.telegrambot.request.SendPhoto;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.List;
 
 
 public class Source {
 
     public static void main(String[] args) throws InterruptedException {
 
-        BotCommandExecutor botexec= new BotCommandExecutor();
-        ApplicationContext context= new ClassPathXmlApplicationContext("beans.xml");
-        Scenario1 scenario= (Scenario1) context.getBean("scenario1");
+        BotCommandExecutor botexec = new BotCommandExecutor();
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Scenario1 scenario = (Scenario1) context.getBean("scenario1");
 
         final String botToken = "934437958:AAGaIZjKSzdSnMHDabQsw10wG5RI1CvmLPY";
-        List<GlobalResponse> getAllUpdates ;
+        List<GlobalResponse> getAllUpdates;
         boolean access = true;
         int incre = 0;
 
@@ -37,7 +37,12 @@ public class Source {
                 System.out.println();
 
                 for (GlobalResponse resp : getAllUpdates) {
-                        scenario.process("",bot,resp);
+                    //scenario.process("",bot,resp);
+                    try{
+                    bot.execute(new SendPhoto(resp.getResponseMessage().getChatId(), resp.getPhotoSizes()[0].fileId()));
+                    }catch (NullPointerException e){
+                        System.out.println(e);
+                    }
                 }
 
             } catch (Exception e) {
